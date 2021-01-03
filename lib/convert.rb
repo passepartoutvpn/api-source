@@ -1,18 +1,4 @@
 def convert(version, endpoint, json)
-    if version == 1
-        old_json = Marshal.load(Marshal.dump(json))
-        old_json["pools"].each { |p|
-            p["name"] = ""
-            p["num"] = p["num"].to_s unless p["num"].nil?
-            p["free"] = (p["category"] == "free") unless p["category"].nil?
-            p.delete("category")
-            p.delete("presets")
-            p.delete("resolved")
-        }
-        return old_json
-    end
-
-    # version 2+
     pools = json["pools"].dup
 
     categories = {
@@ -42,9 +28,6 @@ def convert(version, endpoint, json)
         end
 
         group_key = p["country"].dup
-        if p.key?("area")
-            group_key << ".#{p['area']}"
-        end
 
         groups = category[:groups]
         group = groups[group_key]
@@ -52,9 +35,6 @@ def convert(version, endpoint, json)
             group = {
                 "country": p["country"],
             }
-            if p.key?("area")
-                group["area"] = p["area"]
-            end
             pools = []
         else
             pools = group["pools"]

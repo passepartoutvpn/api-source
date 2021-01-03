@@ -17,6 +17,7 @@ args = ARGV.join(" ")
 
 web = "gen"
 versions = ENV["VERSIONS"].split(" ").map(&:to_i)
+latest_version = versions.last
 min_ios = ENV["MIN_IOS"].split(" ").map(&:to_i)
 min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
 endpoint = "net"
@@ -62,14 +63,10 @@ providers.each { |map|
             FileUtils.mkdir_p(path)
 
             # inject metadata
-            if v == 3
-                json["build"] = min_ios[i]
-            else
-                json["build"] = {
-                    "ios": min_ios[i],
-                    "macos": min_macos[i]
-                }
-            end
+            json["build"] = {
+                "ios": min_ios[i],
+                "macos": min_macos[i]
+            }
             json["name"] = key # lowercase
 
             json_v = json.to_json
@@ -99,9 +96,8 @@ providers.each { |map|
     next if soft_failures.include? name
     key = map["name"]
 
-    # v3 is the reference
-    path_v3 = "#{web}/v3/providers/#{key}/#{endpoint}.json"
-    subject = IO.binread(path_v3)
+    path_latest = "#{web}/v#{latest_version}/providers/#{key}/#{endpoint}.json"
+    subject = IO.binread(path_latest)
     md = Digest::SHA1.hexdigest(subject)
     raise "#{name}: corrupt digest" if md != digests[key]
 }

@@ -1,18 +1,4 @@
 def convert(version, endpoint, json)
-    if version == 1
-        old_json = Marshal.load(Marshal.dump(json))
-        old_json["pools"].each { |p|
-            p["name"] = ""
-            p["num"] = p["num"].to_s unless p["num"].nil?
-            p["free"] = (p["category"] == "free") unless p["category"].nil?
-            p.delete("category")
-            p.delete("presets")
-            p.delete("resolved")
-        }
-        return old_json
-    end
-
-    # version 2+
     pools = json["pools"].dup
 
     categories = {

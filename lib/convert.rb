@@ -28,9 +28,6 @@ def convert(version, endpoint, json)
         end
 
         group_key = p["country"].dup
-        if p.key?("area")
-            group_key << ".#{p['area']}"
-        end
 
         groups = category[:groups]
         group = groups[group_key]
@@ -38,9 +35,6 @@ def convert(version, endpoint, json)
             group = {
                 "country": p["country"],
             }
-            if p.key?("area")
-                group["area"] = p["area"]
-            end
             pools = []
         else
             pools = group["pools"]

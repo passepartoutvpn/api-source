@@ -42,7 +42,10 @@ providers.each { |map|
 
     begin
         prefix = "providers/#{key}"
-        system("cd #{prefix} && ./update-servers.sh") unless ARGV.include? "noupdate"
+        update = system("cd #{prefix} && ./update-servers.sh") unless ARGV.include? "noupdate"
+        if !update
+            raise "#{name}: could not update servers"
+        end
 
         json_string = `sh #{prefix}/#{endpoint}.sh #{args}`
         raise "#{name}: #{endpoint}.sh failed or is missing" if !$?.success?

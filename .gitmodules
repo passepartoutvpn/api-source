@@ -28,3 +28,6 @@
 [submodule "providers/csv"]
 	path = providers/csv
 	url = https://github.com/passepartoutvpn/api-source-csv
+[submodule "providers/surfshark"]
+	path = providers/surfshark
+	url = https://github.com/passepartoutvpn/api-source-surfshark

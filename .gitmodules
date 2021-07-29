@@ -31,3 +31,6 @@
 [submodule "providers/surfshark"]
 	path = providers/surfshark
 	url = https://github.com/passepartoutvpn/api-source-surfshark
+[submodule "providers/oeck"]
+	path = providers/oeck
+	url = https://github.com/passepartoutvpn/api-source-oeck

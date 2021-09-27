@@ -25,6 +25,7 @@ digests = {}
 
 args = {}
 OptionParser.new do |opt|
+    opt.on("--dirty") { |o| args[:dirty] = o }
     opt.on("--noupdate") { |o| args[:noupdate] = o }
     opt.on("--noresolv") { |o| args[:noresolv] = o }
 end.parse!
@@ -34,9 +35,11 @@ providers.each { |map|
     name = map["description"]
 
     # ensure that repo and submodules were not altered
-    repo_status = `git status --porcelain`
-    puts repo_status
-    raise "Dirty git status" if !repo_status.empty?
+    unless args[:dirty]
+        repo_status = `git status --porcelain`
+        puts repo_status
+        raise "Dirty git status" if !repo_status.empty?
+    end
 
     puts
     puts "====== #{name} ======"

@@ -28,10 +28,13 @@ OptionParser.new do |opt|
     opt.on("--dirty") { |o| args[:dirty] = o }
     opt.on("--noupdate") { |o| args[:noupdate] = o }
     opt.on("--noresolv") { |o| args[:noresolv] = o }
+    opt.on("--providers list") { |o| args[:providers] = o }
 end.parse!
+only_providers = args[:providers].split(",") if args[:providers]
 
 providers.each { |map|
     key = map["name"]
+    next unless (only_providers.nil? or only_providers.include? key)
     name = map["description"]
 
     # ensure that repo and submodules were not altered
@@ -114,6 +117,7 @@ providers.each { |map|
     name = map["description"]
     next if soft_failures.include? name
     key = map["name"]
+    next unless (only_providers.nil? or only_providers.include? key)
 
     path_latest = "#{web}/v#{latest_version}/providers/#{key}/#{endpoint}.json"
     subject = IO.binread(path_latest)

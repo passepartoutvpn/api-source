@@ -3,6 +3,7 @@ require "json"
 require "fileutils"
 require "digest"
 require "nokogiri"
+require "optparse"
 require_relative "lib/convert"
 require_relative "lib/notify"
 
@@ -13,7 +14,6 @@ providers_json = File.read(providers_path)
 providers = JSON.parse(providers_json)
 
 soft_failures = []
-args = ARGV.join(" ")
 
 web = "gen"
 versions = ENV["VERSIONS"].split(" ").map(&:to_i)
@@ -22,6 +22,12 @@ min_ios = ENV["MIN_IOS"].split(" ").map(&:to_i)
 min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
 endpoint = "net"
 digests = {}
+
+args = {}
+OptionParser.new do |opt|
+    opt.on("--noupdate") { |o| args[:noupdate] = o }
+    opt.on("--noresolv") { |o| args[:noresolv] = o }
+end.parse!
 
 providers.each { |map|
     key = map["name"]
@@ -47,7 +53,14 @@ providers.each { |map|
             raise "#{name}: could not update servers"
         end
 
-        json_string = `sh #{prefix}/#{endpoint}.sh #{args}`
+        cmd = "sh #{prefix}/#{endpoint}.sh"
+        if args[:noupdate]
+            cmd += " noupdate"
+        end
+        if args[:noresolv]
+            cmd += " noresolv"
+        end
+        json_string = `#{cmd}`
         raise "#{name}: #{endpoint}.sh failed or is missing" if !$?.success?
 
         json_src = nil

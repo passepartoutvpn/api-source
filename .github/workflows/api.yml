@@ -1,0 +1,29 @@
+name: Commit to API
+on:
+  push:
+    branches:
+      #- master
+      - publish-providers
+jobs:
+  push_to_api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+      - name: Update providers
+        run: |
+          ./generate.sh
+      - name: Deploy
+        uses: tagus/git-deploy@v0.3.2
+        with:
+          changes: gen
+          repository: git@github.com:passepartoutvpn/api.git
+          ssh_key: ${{ secrets.API_DEPLOY_KEY }}
+          name: keeshux
+          email: keeshux@gmail.com

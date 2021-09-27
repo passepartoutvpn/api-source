@@ -23,7 +23,10 @@ min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
 endpoint = "net"
 digests = {}
 
-args = {}
+args = {
+  :noupdate => false,
+  :noresolv => false
+}
 OptionParser.new do |opt|
     opt.on("--dirty") { |o| args[:dirty] = o }
     opt.on("--noupdate") { |o| args[:noupdate] = o }
@@ -54,15 +57,14 @@ providers.each { |map|
 
     begin
         prefix = "providers/#{key}"
-        update = system("cd #{prefix} && ./update-servers.sh") unless ARGV.include? "noupdate"
-        if !update
-            raise "#{name}: could not update servers"
+        if !args[:noupdate]
+          update = system("cd #{prefix} && ./update-servers.sh")
+          if !update
+              raise "#{name}: could not update servers"
+          end
         end
 
         cmd = "sh #{prefix}/#{endpoint}.sh"
-        if args[:noupdate]
-            cmd += " noupdate"
-        end
         if args[:noresolv]
             cmd += " noresolv"
         end

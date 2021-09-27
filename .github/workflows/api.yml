@@ -1,9 +1,11 @@
 name: Commit to API
 on:
-  push:
-    branches:
-      #- master
-      - publish-providers
+  #  push:
+  #    branches:
+  #      #- master
+  #      - publish-providers
+  schedule:
+    - cron: '0 19 * * MON'
 jobs:
   push_to_api:
     runs-on: ubuntu-latest

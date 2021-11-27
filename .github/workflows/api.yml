@@ -1,9 +1,8 @@
 name: Commit to API
 on:
-  #  push:
-  #    branches:
-  #      #- master
-  #      - publish-providers
+  push:
+    branches:
+      - master
   schedule:
     - cron: '0 21 * * MON'
 jobs:

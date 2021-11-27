@@ -2,7 +2,8 @@ name: Commit to API
 on:
   push:
     branches:
-      - master
+      - 'master'
+      - 'update-protonvpn'
   schedule:
     - cron: '0 21 * * MON'
 jobs:
@@ -19,7 +20,7 @@ jobs:
           bundler-cache: true
       - name: Update providers
         run: |
-          ./generate.sh
+          ./generate.sh --providers protonvpn
       - name: Deploy
         uses: tagus/git-deploy@v0.3.2
         with:

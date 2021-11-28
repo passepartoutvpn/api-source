@@ -5,6 +5,12 @@ on:
       - master
   schedule:
     - cron: '0 21 * * MON'
+  workflow_dispatch:
+    inputs:
+      providers:
+        description: 'Provider IDs (comma-separated)'
+        required: false
+        default: 'all'
 jobs:
   push_to_api:
     runs-on: ubuntu-latest
@@ -19,8 +25,12 @@ jobs:
           bundler-cache: true
       - name: Update providers
         env:
+          API_PROVIDERS_MANUAL: ${{ github.event.inputs.providers }}
           API_PROVIDERS: ${{ secrets.API_PROVIDERS }}
         run: |
+          if [[ -n "$API_PROVIDERS_MANUAL" ]]; then
+            export API_PROVIDERS="$API_PROVIDERS_MANUAL"
+          fi
           ./generate.sh --providers "$API_PROVIDERS"
       - name: Deploy
         uses: tagus/git-deploy@v0.3.2

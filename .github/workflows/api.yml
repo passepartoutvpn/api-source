@@ -18,8 +18,10 @@ jobs:
           ruby-version: 2.7
           bundler-cache: true
       - name: Update providers
+        env:
+          API_PROVIDERS: ${{ secrets.API_PROVIDERS }}
         run: |
-          ./generate.sh
+          ./generate.sh --providers "$API_PROVIDERS"
       - name: Deploy
         uses: tagus/git-deploy@v0.3.2
         with:

@@ -33,7 +33,7 @@ OptionParser.new do |opt|
     opt.on("--noresolv") { |o| args[:noresolv] = o }
     opt.on("--providers list") { |o| args[:providers] = o }
 end.parse!
-only_providers = args[:providers].split(",") if args[:providers]
+only_providers = args[:providers].split(",") if args[:providers] unless args[:providers] == "all"
 
 providers.each { |map|
     key = map["name"]

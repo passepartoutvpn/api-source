@@ -38,5 +38,5 @@ jobs:
           changes: gen
           repository: git@github.com:passepartoutvpn/api.git
           ssh_key: ${{ secrets.API_DEPLOY_KEY }}
-          name: keeshux
-          email: keeshux@gmail.com
+          name: Passepartout API
+          email: providers@passepartoutvpn.app

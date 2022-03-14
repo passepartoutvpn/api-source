@@ -20,7 +20,8 @@ versions = ENV["VERSIONS"].split(" ").map(&:to_i)
 latest_version = versions.last
 min_ios = ENV["MIN_IOS"].split(" ").map(&:to_i)
 min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
-endpoint = "net"
+script = "net"
+endpoint = "ovpn"
 digests = {}
 
 args = {
@@ -64,12 +65,12 @@ providers.each { |map|
           end
         end
 
-        cmd = "sh #{prefix}/#{endpoint}.sh"
+        cmd = "sh #{prefix}/#{script}.sh"
         if args[:noresolv]
             cmd += " noresolv"
         end
         json_string = `#{cmd}`
-        raise "#{name}: #{endpoint}.sh failed or is missing" if !$?.success?
+        raise "#{name}: #{script}.sh failed or is missing" if !$?.success?
 
         json_src = nil
         begin

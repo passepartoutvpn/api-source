@@ -36,10 +36,12 @@ OptionParser.new do |opt|
 end.parse!
 only_providers = args[:providers].split(",") if args[:providers] unless args[:providers] == "all"
 
-providers.each { |map|
+metadata = providers["metadata"]
+
+metadata.each { |map|
     key = map["name"]
     next unless (only_providers.nil? or only_providers.include? key)
-    name = map["description"]
+    name = map["fullName"]
 
     # ensure that repo and submodules were not altered
     unless args[:dirty]
@@ -93,6 +95,7 @@ providers.each { |map|
                 "macos": min_macos[i]
             }
             json["name"] = key # lowercase
+            json["fullName"] = map["fullName"]
 
             json_v = json.to_json
             file = File.new("#{path}/#{resource}", "w")
@@ -116,8 +119,8 @@ providers.each { |map|
 }
 
 # fail abruptly on JSON hijacking
-providers.each { |map|
-    name = map["description"]
+metadata.each { |map|
+    name = map["fullName"]
     next if soft_failures.include? name
     key = map["name"]
     next unless (only_providers.nil? or only_providers.include? key)

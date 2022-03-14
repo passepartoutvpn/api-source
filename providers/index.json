@@ -1,53 +1,43 @@
-[
-    {
+{
+    "metadata": [{
         "name": "hideme",
-        "description": "Hide.me"
-    },
-    {
+        "fullName": "Hide.me"
+    }, {
         "name": "mullvad",
-        "description": "Mullvad",
+        "fullName": "Mullvad",
         "inApp": "Mullvad"
-    },
-    {
+    }, {
         "name": "nordvpn",
-        "description": "NordVPN",
+        "fullName": "NordVPN",
         "inApp": "NordVPN"
-    },
-    {
+    }, {
         "name": "oeck",
-        "description": "Oeck"
-    },
-    {
+        "fullName": "Oeck"
+    }, {
         "name": "pia",
-        "description": "PIA",
+        "fullName": "PIA",
         "inApp": "PIA"
-    },
-    {
+    }, {
         "name": "protonvpn",
-        "description": "ProtonVPN",
+        "fullName": "ProtonVPN",
         "inApp": "ProtonVPN"
-    },
-    {
+    }, {
         "name": "surfshark",
-        "description": "SurfShark"
-    },
-    {
+        "fullName": "SurfShark"
+    }, {
         "name": "torguard",
-        "description": "TorGuard"
-    },
-    {
+        "fullName": "TorGuard"
+    }, {
         "name": "tunnelbear",
-        "description": "TunnelBear",
+        "fullName": "TunnelBear",
         "inApp": "TunnelBear"
-    },
-    {
+    }, {
         "name": "vyprvpn",
-        "description": "VyprVPN",
+        "fullName": "VyprVPN",
         "inApp": "VyprVPN"
-    },
-    {
+    }, {
         "name": "windscribe",
-        "description": "Windscribe",
+        "fullName": "Windscribe",
         "inApp": "Windscribe"
-    }
-]
+    }]
+}

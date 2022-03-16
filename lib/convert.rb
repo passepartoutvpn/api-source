@@ -7,15 +7,6 @@ def convert(version, endpoint, json)
         }
     }
 
-    externalHostname = true
-    json["presets"].each { |p|
-        external = p["external"]
-        if external.nil? || !external.key?("hostname")
-            externalHostname = false
-            break
-        end
-    }
-
     pools.each { |p|
         p = p.dup
         category_name = p["category"] || :default
@@ -44,12 +35,6 @@ def convert(version, endpoint, json)
         #p.delete("country")
         #p.delete("area")
         p.delete("name")
-
-        if p["resolved"].nil? && p["resolved"]
-            p.delete("hostname")
-        elsif externalHostname
-            p.delete("hostname")
-        end
 
         pools << p
         group["pools"] = pools

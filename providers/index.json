@@ -1,53 +1,54 @@
-[
-    {
+{
+    "metadata": [{
         "name": "hideme",
-        "description": "Hide.me"
-    },
-    {
+        "fullName": "Hide.me",
+        "vpn": ["ovpn"]
+    }, {
         "name": "mullvad",
-        "description": "Mullvad",
+        "fullName": "Mullvad",
+        "vpn": ["ovpn"],
         "inApp": "Mullvad"
-    },
-    {
+    }, {
         "name": "nordvpn",
-        "description": "NordVPN",
+        "fullName": "NordVPN",
+        "vpn": ["ovpn"],
         "inApp": "NordVPN"
-    },
-    {
+    }, {
         "name": "oeck",
-        "description": "Oeck"
-    },
-    {
+        "fullName": "Oeck",
+        "vpn": ["ovpn"]
+    }, {
         "name": "pia",
-        "description": "PIA",
+        "fullName": "PIA",
+        "vpn": ["ovpn"],
         "inApp": "PIA"
-    },
-    {
+    }, {
         "name": "protonvpn",
-        "description": "ProtonVPN",
+        "fullName": "ProtonVPN",
+        "vpn": ["ovpn"],
         "inApp": "ProtonVPN"
-    },
-    {
+    }, {
         "name": "surfshark",
-        "description": "SurfShark"
-    },
-    {
+        "fullName": "SurfShark",
+        "vpn": ["ovpn"]
+    }, {
         "name": "torguard",
-        "description": "TorGuard"
-    },
-    {
+        "fullName": "TorGuard",
+        "vpn": ["ovpn"]
+    }, {
         "name": "tunnelbear",
-        "description": "TunnelBear",
+        "fullName": "TunnelBear",
+        "vpn": ["ovpn"],
         "inApp": "TunnelBear"
-    },
-    {
+    }, {
         "name": "vyprvpn",
-        "description": "VyprVPN",
+        "fullName": "VyprVPN",
+        "vpn": ["ovpn"],
         "inApp": "VyprVPN"
-    },
-    {
+    }, {
         "name": "windscribe",
-        "description": "Windscribe",
+        "fullName": "Windscribe",
+        "vpn": ["ovpn"],
         "inApp": "Windscribe"
-    }
-]
+    }]
+}

@@ -1,25 +1,16 @@
 def convert(version, endpoint, json)
-    pools = json["pools"].dup
+    servers = json["servers"].dup
 
     categories = {
         default: {
-            groups: {}
+            locations: {}
         }
     }
 
-    externalHostname = true
-    json["presets"].each { |p|
-        external = p["external"]
-        if external.nil? || !external.key?("hostname")
-            externalHostname = false
-            break
-        end
-    }
-
-    pools.each { |p|
+    servers.each { |p|
         p = p.dup
         category_name = p["category"] || :default
-        category = categories[category_name] || {groups: {}}
+        category = categories[category_name] || {locations: {}}
 
         # pick first
         if p.key?("presets")
@@ -27,17 +18,17 @@ def convert(version, endpoint, json)
             p.delete("presets")
         end
 
-        group_key = p["country"].dup
+        location_key = p["country"].dup
 
-        groups = category[:groups]
-        group = groups[group_key]
-        if group.nil?
-            group = {
+        locations = category[:locations]
+        location = locations[location_key]
+        if location.nil?
+            location = {
                 "country": p["country"],
             }
-            pools = []
+            servers = []
         else
-            pools = group["pools"]
+            servers = location["servers"]
         end
 
         p.delete("category")
@@ -45,16 +36,10 @@ def convert(version, endpoint, json)
         #p.delete("area")
         p.delete("name")
 
-        if p["resolved"].nil? && p["resolved"]
-            p.delete("hostname")
-        elsif externalHostname
-            p.delete("hostname")
-        end
-
-        pools << p
-        group["pools"] = pools
-        groups[group_key] = group
-        category[:groups] = groups
+        servers << p
+        location["servers"] = servers
+        locations[location_key] = location
+        category[:locations] = locations
 
         categories[category_name] = category
     }
@@ -66,7 +51,7 @@ def convert(version, endpoint, json)
         end
         obj = {
             name: k,
-            groups: v[:groups].values
+            locations: v[:locations].values
         }
         if v.key?("presets")
             obj["presets"] = v["presets"]
@@ -74,7 +59,7 @@ def convert(version, endpoint, json)
         categories_linear << obj
     }
 
-    json.delete("pools")
+    json.delete("servers")
     json["categories"] = categories_linear
     return json
 end

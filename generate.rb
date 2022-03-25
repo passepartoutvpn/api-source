@@ -20,7 +20,8 @@ versions = ENV["VERSIONS"].split(" ").map(&:to_i)
 latest_version = versions.last
 min_ios = ENV["MIN_IOS"].split(" ").map(&:to_i)
 min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
-endpoint = "net"
+script = "net"
+endpoint = "ovpn"
 digests = {}
 
 args = {
@@ -35,10 +36,12 @@ OptionParser.new do |opt|
 end.parse!
 only_providers = args[:providers].split(",") if args[:providers] unless args[:providers] == "all"
 
-providers.each { |map|
+metadata = providers["metadata"]
+
+metadata.each { |map|
     key = map["name"]
     next unless (only_providers.nil? or only_providers.include? key)
-    name = map["description"]
+    name = map["fullName"]
 
     # ensure that repo and submodules were not altered
     unless args[:dirty]
@@ -64,12 +67,12 @@ providers.each { |map|
           end
         end
 
-        cmd = "sh #{prefix}/#{endpoint}.sh"
+        cmd = "sh #{prefix}/#{script}.sh"
         if args[:noresolv]
             cmd += " noresolv"
         end
         json_string = `#{cmd}`
-        raise "#{name}: #{endpoint}.sh failed or is missing" if !$?.success?
+        raise "#{name}: #{script}.sh failed or is missing" if !$?.success?
 
         json_src = nil
         begin
@@ -92,6 +95,7 @@ providers.each { |map|
                 "macos": min_macos[i]
             }
             json["name"] = key # lowercase
+            json["fullName"] = map["fullName"]
 
             json_v = json.to_json
             file = File.new("#{path}/#{resource}", "w")
@@ -115,8 +119,8 @@ providers.each { |map|
 }
 
 # fail abruptly on JSON hijacking
-providers.each { |map|
-    name = map["description"]
+metadata.each { |map|
+    name = map["fullName"]
     next if soft_failures.include? name
     key = map["name"]
     next unless (only_providers.nil? or only_providers.include? key)

@@ -18,8 +18,7 @@ soft_failures = []
 web = "gen"
 versions = ENV["VERSIONS"].split(" ").map(&:to_i)
 latest_version = versions.last
-min_ios = ENV["MIN_IOS"].split(" ").map(&:to_i)
-min_macos = ENV["MIN_MACOS"].split(" ").map(&:to_i)
+min_build = ENV["MIN_BUILD"].split(" ").map(&:to_i)
 script = "net"
 endpoint = "ovpn"
 digests = {}
@@ -90,10 +89,7 @@ metadata.each { |map|
             FileUtils.mkdir_p(path)
 
             # inject metadata
-            json["build"] = {
-                "ios": min_ios[i],
-                "macos": min_macos[i]
-            }
+            json["build"] = min_build[i]
             json["name"] = key # lowercase
             json["fullName"] = map["fullName"]
 

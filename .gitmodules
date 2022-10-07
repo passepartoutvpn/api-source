@@ -31,3 +31,6 @@
 [submodule "providers/oeck"]
 	path = providers/oeck
 	url = https://github.com/passepartoutvpn/api-source-oeck
+[submodule "providers/ivpn"]
+	path = providers/ivpn
+	url = https://github.com/passepartoutvpn/api-source-ivpn

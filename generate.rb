@@ -80,6 +80,10 @@ metadata.each { |map|
             raise "#{name}: invalid JSON"
         end
 
+        if json_src["servers"].empty?
+            raise "#{name}: empty servers"
+        end
+
         subjects = []
         versions.each_with_index { |v, i|
             json = convert(v, endpoint, json_src.dup)

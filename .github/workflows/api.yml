@@ -11,6 +11,7 @@ on:
         description: 'Provider IDs (comma-separated)'
         required: false
         default: 'all'
+
 jobs:
   push_to_api:
     name: Push to API
@@ -28,6 +29,8 @@ jobs:
         env:
           API_PROVIDERS_MANUAL: ${{ github.event.inputs.providers }}
           API_PROVIDERS: ${{ secrets.API_PROVIDERS }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
         run: |
           if [[ -n "$API_PROVIDERS_MANUAL" ]]; then
             export API_PROVIDERS="$API_PROVIDERS_MANUAL"

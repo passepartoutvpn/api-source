@@ -33,9 +33,10 @@ jobs:
           TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
         run: |
           if [[ -n "$API_PROVIDERS_MANUAL" ]]; then
-            export API_PROVIDERS="$API_PROVIDERS_MANUAL"
+            ci/update-providers.sh "$API_PROVIDERS_MANUAL"
+          else
+            ci/update-providers.sh "$API_PROVIDERS"
           fi
-          ./generate.sh --providers "$API_PROVIDERS"
       - name: Deploy
         uses: tagus/git-deploy@v0.3.2
         with:

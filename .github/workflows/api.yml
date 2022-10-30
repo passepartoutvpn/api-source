@@ -32,18 +32,22 @@ jobs:
           bundler-cache: true
 
       - name: Get changed files
-        if: github.event_name == 'push'
         id: changed_files
+        if: github.event_name == 'push'
         uses: tj-actions/changed-files@v34
         with:
           files: |
             providers/*
       - name: Update providers (push)
+        id: update_providers_push
         if: github.event_name == 'push'
         env:
           CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
         run: |
           ci/update-providers.sh
+          if [[ -z $INFERRED_PROVIDERS ]]; then
+            echo "skip_deploy=1" >> $GITHUB_OUTPUT
+          fi
 
       - name: Update providers (Cron)
         if: github.event_name == 'schedule'
@@ -56,12 +60,12 @@ jobs:
           API_PROVIDERS_MANUAL: ${{ github.event.inputs.providers }}
         run: |
           if [[ -n "$API_PROVIDERS_MANUAL" ]]; then
-            ci/update-providers.sh "$API_PROVIDERS_MANUAL"
-          else
-            ci/update-providers.sh "$API_PROVIDERS"
+            API_PROVIDERS="$API_PROVIDERS_MANUAL"
           fi
+          ci/update-providers.sh "$API_PROVIDERS"
 
       - name: Deploy
+        if: ${{ !steps.update_providers_push.outputs.skip_deploy }}
         uses: tagus/git-deploy@v0.3.2
         with:
           changes: gen

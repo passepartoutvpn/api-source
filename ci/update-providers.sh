@@ -8,6 +8,7 @@ else
         PROVIDERS="$PROVIDERS,$CHANGED_PROVIDER"
     done
 fi
+export INFERRED_PROVIDERS="$PROVIDERS"
 if [[ -z $PROVIDERS ]]; then
     echo "No provider was updated"
     exit 0

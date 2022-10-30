@@ -8,4 +8,8 @@ else
         PROVIDERS="$PROVIDERS,$CHANGED_PROVIDER"
     done
 fi
+if [[ -z $PROVIDERS ]]; then
+    echo "No provider was updated"
+    exit 0
+fi
 ./generate.sh --providers "$PROVIDERS"

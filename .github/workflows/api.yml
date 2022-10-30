@@ -1,4 +1,4 @@
-name: Commit to API
+name: API
 on:
   push:
     branches:

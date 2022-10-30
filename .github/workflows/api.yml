@@ -1,4 +1,4 @@
-name: Commit to API
+name: API
 on:
   push:
     branches:
@@ -16,26 +16,51 @@ jobs:
   push_to_api:
     name: Push to API
     runs-on: ubuntu-latest
+    env:
+      API_PROVIDERS: ${{ secrets.API_PROVIDERS }}
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
     steps:
       - name: Check out current
         uses: actions/checkout@v2
         with:
           submodules: true
+          fetch-depth: 2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
           bundler-cache: true
-      - name: Update providers
+
+      - name: Get changed files
+        if: github.event_name == 'push'
+        id: changed_files
+        uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            providers/*
+      - name: Update providers (push)
+        if: github.event_name == 'push'
+        env:
+          CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
+        run: |
+          ci/update-providers.sh
+
+      - name: Update providers (Cron)
+        if: github.event_name == 'schedule'
+        run: |
+          ci/update-providers.sh "$API_PROVIDERS"
+
+      - name: Update providers (manual)
+        if: github.event_name == 'workflow_dispatch'
         env:
           API_PROVIDERS_MANUAL: ${{ github.event.inputs.providers }}
-          API_PROVIDERS: ${{ secrets.API_PROVIDERS }}
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
         run: |
           if [[ -n "$API_PROVIDERS_MANUAL" ]]; then
-            export API_PROVIDERS="$API_PROVIDERS_MANUAL"
+            ci/update-providers.sh "$API_PROVIDERS_MANUAL"
+          else
+            ci/update-providers.sh "$API_PROVIDERS"
           fi
-          ./generate.sh --providers "$API_PROVIDERS"
+
       - name: Deploy
         uses: tagus/git-deploy@v0.3.2
         with:

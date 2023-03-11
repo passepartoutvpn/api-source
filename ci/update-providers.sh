@@ -9,8 +9,8 @@ else
     done
 fi
 export INFERRED_PROVIDERS="$PROVIDERS"
-if [[ -z $PROVIDERS ]]; then
+if [[ -z "$PROVIDERS" ]]; then
     echo "No provider was updated"
-    exit 0
+    return
 fi
 ./generate.sh --providers "$PROVIDERS"

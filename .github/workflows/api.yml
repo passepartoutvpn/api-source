@@ -44,10 +44,13 @@ jobs:
         env:
           CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
         run: |
-          ci/update-providers.sh
-          if [[ -z $INFERRED_PROVIDERS ]]; then
+          source ci/update-providers.sh
+          if [[ -z "$INFERRED_PROVIDERS" ]]; then
+            echo "Skipping deploy"
             echo "skip_deploy=1" >> $GITHUB_OUTPUT
+            exit 0
           fi
+          echo "Will deploy: '$INFERRED_PROVIDERS'"
 
       - name: Update providers (Cron)
         if: github.event_name == 'schedule'

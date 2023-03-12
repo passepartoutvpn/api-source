@@ -5,12 +5,14 @@ else
     PROVIDERS=""
     for file in $CHANGED_FILES; do
         CHANGED_PROVIDER=`echo $file | sed -E "s/providers\/([A-z]+)\/.+/\1/g"`
-        PROVIDERS="$PROVIDERS,$CHANGED_PROVIDER"
+        if [[ -n "$PROVIDERS" ]]; then
+            PROVIDERS="$PROVIDERS,"
+        fi
+        PROVIDERS="$PROVIDERS$CHANGED_PROVIDER"
     done
 fi
-export INFERRED_PROVIDERS="$PROVIDERS"
 if [[ -z "$PROVIDERS" ]]; then
     echo "No provider was updated"
-    return
+    exit 1
 fi
 ./generate.sh --providers "$PROVIDERS"

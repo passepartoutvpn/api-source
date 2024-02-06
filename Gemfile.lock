@@ -2,10 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (2.8.1)
-    fileutils (1.7.0)
-    json (2.6.3)
+    fileutils (1.7.2)
+    json (2.7.1)
     mini_portile2 (2.8.5)
-    nokogiri (1.16.2)
+    nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     racc (1.7.3)
@@ -20,4 +20,4 @@ DEPENDENCIES
   nokogiri
 
 BUNDLED WITH
-   2.2.22
+   2.4.19

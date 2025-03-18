@@ -33,7 +33,7 @@ jobs:
       - name: Get changed files
         id: changed_files
         if: github.event_name == 'push'
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v46
         with:
           files: |
             providers/*

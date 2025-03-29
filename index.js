@@ -1,0 +1,36 @@
+//
+//  index.js
+//  PassepartoutKit
+//
+//  Created by Davide De Rosa on 3/30/25.
+//  Copyright (c) 2025 Davide De Rosa. All rights reserved.
+//
+//  https://github.com/passepartoutvpn
+//
+//  This file is part of PassepartoutKit.
+//
+//  PassepartoutKit is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  PassepartoutKit is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with PassepartoutKit.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+import { fetchInfrastructure } from "./lib/context.js";
+
+const providerId = process.argv[2];
+const isRemote = process.argv[3] == 1; // local by default
+if (!providerId) {
+    console.error("Please provide a provider id.");
+    process.exit(1);
+}
+
+const json = fetchInfrastructure("api/v6", providerId, isRemote ? null : "test/mock/v6");
+console.log(JSON.stringify(json, null, 2));

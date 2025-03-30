@@ -23,8 +23,7 @@
 //  along with PassepartoutKit.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-export const apiRoot = "api/v6";
-export const localRoot = "test/mock/v6";
+export { api } from "../lib/api.js";
 
 export function templateFrom(preset) {
     try {

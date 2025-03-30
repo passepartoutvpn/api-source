@@ -26,11 +26,12 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
+import { mockApi } from "../../lib/api.js";
 import { fetchInfrastructure } from "../../lib/context.js";
-import { apiRoot, localRoot, templateFrom } from "../setup.js";
+import { templateFrom } from "../setup.js";
 
 describe("oeck", () => {
-    const json = fetchInfrastructure(apiRoot, "oeck", localRoot);
+    const json = fetchInfrastructure(mockApi, "oeck");
     const infra = json.response;
 
     it("should have 2 presets", () => {

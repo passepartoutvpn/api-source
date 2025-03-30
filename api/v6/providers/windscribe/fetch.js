@@ -133,6 +133,8 @@ wf-us|US||Windflix
         }
         if (comps[3] != "") {
             metadata.categoryName = comps[3];
+        } else {
+            metadata.categoryName = "Default";
         }
         server.metadata = metadata;
 

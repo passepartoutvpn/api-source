@@ -27,7 +27,6 @@ import fs from "fs";
 
 const apiIndex = "api/v6/index.json";
 const excludedProviders = new Set([
-    "torguard",
     "windscribe"
 ]);
 

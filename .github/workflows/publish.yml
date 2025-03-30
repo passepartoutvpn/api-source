@@ -2,10 +2,9 @@ name: Publish API
 on:
   push:
     branches:
-    #  - master
-      - feature/ci-workflows
-    #paths:
-    #  - "*.js"
+      - master
+    paths:
+      - "*.js"
   schedule:
     - cron: '0 21 * * MON'
   workflow_dispatch:
@@ -32,5 +31,4 @@ jobs:
           ssh_key: ${{ secrets.API_DEPLOY_KEY }}
           name: Passepartout API
           email: providers@passepartoutvpn.app
-          #branch: master
-          branch: feature/v6
+          branch: master

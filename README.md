@@ -1,4 +1,5 @@
 [![Unit Tests](https://github.com/passepartoutvpn/api-source/actions/workflows/test.yml/badge.svg)](https://github.com/passepartoutvpn/api-source/actions/workflows/test.yml)
+[![Publish](https://github.com/passepartoutvpn/api-source/actions/workflows/publish.yml/badge.svg)](https://github.com/passepartoutvpn/api-source/actions/workflows/publish.yml)
 
 # Passepartout API
 

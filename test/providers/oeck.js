@@ -25,13 +25,10 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-
-import { mockApi } from "../../lib/api.js";
-import { fetchInfrastructure } from "../../lib/context.js";
-import { templateFrom } from "../setup.js";
+import * as setup from "../setup.js";
 
 describe("oeck", () => {
-    const json = fetchInfrastructure(mockApi, "oeck");
+    const json = setup.fetchMockInfrastructure("oeck");
     const infra = json.response;
 
     it("should have 2 presets", () => {
@@ -43,7 +40,7 @@ describe("oeck", () => {
     it("preset 0 should use CBC and 2 endpoints", () => {
         const preset = infra.presets[0];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-128-CBC");
         assert.strictEqual(cfg.digest, "SHA256");
@@ -54,7 +51,7 @@ describe("oeck", () => {
     it("preset 1 should use GCM and 2 endpoints", () => {
         const preset = infra.presets[1];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-256-GCM");
         assert.strictEqual(cfg.digest, "SHA256");

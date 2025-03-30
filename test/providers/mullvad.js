@@ -25,13 +25,10 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-
-import { mockApi } from "../../lib/api.js";
-import { fetchInfrastructure } from "../../lib/context.js";
-import { templateFrom } from "../setup.js";
+import * as setup from "../setup.js";
 
 describe("mullvad", () => {
-    const json = fetchInfrastructure(mockApi, "mullvad");
+    const json = setup.fetchMockInfrastructure("mullvad");
     const infra = json.response;
 
     it("should have 2 presets", () => {
@@ -43,7 +40,7 @@ describe("mullvad", () => {
     it("preset 0 should use CBC and 9 endpoints", () => {
         const preset = infra.presets[0];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-256-CBC");
         assert.deepStrictEqual(template.endpoints, [
@@ -54,7 +51,7 @@ describe("mullvad", () => {
     it("preset 1 should use CBC and 2 endpoints", () => {
         const preset = infra.presets[1];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-256-CBC");
         assert.deepStrictEqual(template.endpoints, [

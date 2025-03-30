@@ -25,13 +25,10 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-
-import { mockApi } from "../../lib/api.js";
-import { fetchInfrastructure } from "../../lib/context.js";
-import { templateFrom } from "../setup.js";
+import * as setup from "../setup.js";
 
 describe("pia", () => {
-    const json = fetchInfrastructure(mockApi, "pia");
+    const json = setup.fetchMockInfrastructure("pia");
     const infra = json.response;
 
     it("should have 1 preset", () => {
@@ -43,7 +40,7 @@ describe("pia", () => {
     it("preset 0 should use CBC and 8 endpoints", () => {
         const preset = infra.presets[0];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-256-CBC");
         assert.strictEqual(cfg.digest, "SHA256");

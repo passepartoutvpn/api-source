@@ -25,13 +25,10 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-
-import { mockApi } from "../../lib/api.js";
-import { fetchInfrastructure } from "../../lib/context.js";
-import { templateFrom } from "../setup.js";
+import * as setup from "../setup.js";
 
 describe("tunnelbear", () => {
-    const json = fetchInfrastructure(mockApi, "tunnelbear");
+    const json = setup.fetchMockInfrastructure("tunnelbear");
     const infra = json.response;
 
     it("should have 1 preset", () => {
@@ -43,7 +40,7 @@ describe("tunnelbear", () => {
     it("preset 0 should use CBC and 3 endpoints", () => {
         const preset = infra.presets[0];
         assert.strictEqual(preset.moduleType, "OpenVPN");
-        const template = templateFrom(preset);
+        const template = setup.templateFrom(preset);
         const cfg = template.configuration;
         assert.strictEqual(cfg.cipher, "AES-256-CBC");
         assert.strictEqual(cfg.digest, "SHA256");

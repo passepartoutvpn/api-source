@@ -23,7 +23,12 @@
 //  along with PassepartoutKit.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-export { api } from "../lib/api.js";
+import { mockApi } from "../lib/api.js";
+import { fetchInfrastructure } from "../lib/context.js";
+
+export function fetchMockInfrastructure(providerId) {
+    return fetchInfrastructure(mockApi, providerId);
+}
 
 export function templateFrom(preset) {
     try {

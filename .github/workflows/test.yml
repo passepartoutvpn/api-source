@@ -3,6 +3,8 @@ name: Unit Tests
 on:
   pull_request:
     types: [ opened, synchronize ]
+    paths:
+      - "*.js"
 
 concurrency:
   group: ${{ github.ref }}

@@ -1,6 +1,4 @@
-<!--
 [![Unit Tests](https://github.com/passepartoutvpn/api-source/actions/workflows/test.yml/badge.svg)](https://github.com/passepartoutvpn/api-source/actions/workflows/test.yml)
--->
 
 # Passepartout API
 

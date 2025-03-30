@@ -1,13 +1,10 @@
 name: Unit Tests
 
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - "*.md"
   pull_request:
     types: [ opened, synchronize ]
+    paths:
+      - "*.js"
 
 concurrency:
   group: ${{ github.ref }}

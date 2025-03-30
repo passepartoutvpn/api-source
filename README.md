@@ -35,7 +35,7 @@ npm run fetch hideme 1
 Run the tests against the mocks:
 
 ```sh
-npm run tests
+npm test
 ```
 
 ## License

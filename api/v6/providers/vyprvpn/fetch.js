@@ -191,6 +191,7 @@ rgAx9j9a+dMLfe1vP5t6GQj5
     const cfg = {
         ca: ca,
         cipher: "AES-256-GCM",
+        digest: "SHA1",
         compressionFraming: 1,
         compressionAlgorithm: 1,
         keepAliveSeconds: 10,

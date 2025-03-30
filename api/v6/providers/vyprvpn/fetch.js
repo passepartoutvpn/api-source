@@ -35,79 +35,79 @@ function getInfrastructure() {
     // XXX: hardcoded servers
     // https://support.vyprvpn.com/hc/en-us/articles/360037728912-What-are-the-VyprVPN-server-addresses-
     const countriesCSV = `
-Algiers|DZ|dz1
-Amsterdam|EU|eu1
-Athens|GR|gr1
-Auckland|NZ|nz1
-Austin, TX|US|us3
-Bangkok|TH|th1
-Bogotá|CO|co1
-Bratislava|SK|sk1
-Brussels|BE|be1
-Bucharest|RO|ro1
-Buenos Aires|AR|ar1
-Cairo|EG|eg1
-Chicago, IL|US|us6
-Copenhagen|DK|dk1
-Doha|QA|qa1
-Dubai|AE|ae1
-Dublin|IE|ie1
-Frankfurt|DE|de1
-Hanoi|VN|vn1
-Helsinki|FI|fi1
-Hong Kong|HK|hk1
-Istanbul|TR|tr1
-Jakarta|ID|id1
-Karachi|PK|pk1
-Kiev|UA|ua1
-Kuala Lumpur|MY|my1
-Lisbon|PT|pt1
-Ljubljana|SI|si1
-London|GB|uk1
-Los Angeles, CA|US|us1
-Luxembourg City|LU|lu1
-Macau|MO|mo1
-Madrid|ES|es1
-Majuro|MH|mh1
-Malé|MV|mv1
-Manama|BH|bh1
-Manila|PH|ph1
-Melbourne|AU|au2
-Mexico City|MX|mx1
-Miami, FL|US|us4
-Montevideo|UY|uy1
-Moscow|RU|ru1
-Mumbai|IN|in1
-New York City, NY|US|us5
-Oslo|NO|no1
-Panama City|PA|pa1
-Paris|FR|fr1
-Perth|AU|au3
-Prague|CZ|cz1
-Reykjavík|IS|is1
-Riga|LV|lv1
-Riyadh|SA|sa1
-Rome|IT|it1
-San Francisco, CA|US|us7
-San José|CR|cr1
-San Salvador|SV|sv1
-São Paulo|BR|br1
-Schaan|LI|li1
-Seattle, WA|US|us8
-Seoul|KR|kr1
-Singapore|SG|sg1
-Sofia|BG|bg1
-Stockholm|SE|se1
-Sydney|AU|au1
-Taipei|TW|tw1
-Tel Aviv|IL|il1
-Tokyo|JP|jp1
-Toronto|CA|ca1
-Vienna|AT|at1
-Vilnius|LT|lt1
-Warsaw|PL|pl1
-Washington, DC|US|us2
-Zurich|CH|ch1
+ae1|AE|Dubai
+ar1|AR|Buenos Aires
+at1|AT|Vienna
+au1|AU|Sydney
+au2|AU|Melbourne
+au3|AU|Perth
+be1|BE|Brussels
+bg1|BG|Sofia
+bh1|BH|Manama
+br1|BR|São Paulo
+ca1|CA|Toronto
+ch1|CH|Zurich
+co1|CO|Bogotá
+cr1|CR|San José
+cz1|CZ|Prague
+de1|DE|Frankfurt
+dk1|DK|Copenhagen
+dz1|DZ|Algiers
+eg1|EG|Cairo
+es1|ES|Madrid
+eu1|EU|Amsterdam
+fi1|FI|Helsinki
+fr1|FR|Paris
+gr1|GR|Athens
+hk1|HK|Hong Kong
+id1|ID|Jakarta
+ie1|IE|Dublin
+il1|IL|Tel Aviv
+in1|IN|Mumbai
+is1|IS|Reykjavík
+it1|IT|Rome
+jp1|JP|Tokyo
+kr1|KR|Seoul
+li1|LI|Schaan
+lt1|LT|Vilnius
+lu1|LU|Luxembourg City
+lv1|LV|Riga
+mh1|MH|Majuro
+mo1|MO|Macau
+mv1|MV|Malé
+mx1|MX|Mexico City
+my1|MY|Kuala Lumpur
+no1|NO|Oslo
+nz1|NZ|Auckland
+pa1|PA|Panama City
+ph1|PH|Manila
+pk1|PK|Karachi
+pl1|PL|Warsaw
+pt1|PT|Lisbon
+qa1|QA|Doha
+ro1|RO|Bucharest
+ru1|RU|Moscow
+sa1|SA|Riyadh
+se1|SE|Stockholm
+sg1|SG|Singapore
+si1|SI|Ljubljana
+sk1|SK|Bratislava
+sv1|SV|San Salvador
+th1|TH|Bangkok
+tr1|TR|Istanbul
+tw1|TW|Taipei
+ua1|UA|Kiev
+uk1|GB|London
+us1|US|Los Angeles, CA
+us2|US|Washington, DC
+us3|US|Austin, TX
+us4|US|Miami, FL
+us5|US|New York City, NY
+us6|US|Chicago, IL
+us7|US|San Francisco, CA
+us8|US|Seattle, WA
+uy1|UY|Montevideo
+vn1|VN|Hanoi
 `
     const lines = countriesCSV.split("\n");
 
@@ -117,9 +117,9 @@ Zurich|CH|ch1
         if (comps.length < 3) {
             continue;
         }
-        const id = comps[2];
+        const id = comps[0];
         const countryCode = comps[1];
-        const area = comps[0];
+        const area = comps[2];
         const hostname = `${id}.vyprvpn.com`;
         const server = {
             serverId: id,

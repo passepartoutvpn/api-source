@@ -28,17 +28,26 @@ import { fetchInfrastructure } from "./lib/context.js";
 import { mkdir, writeFile } from "fs/promises";
 
 const isRemote = process.argv[2] == 1; // local by default
+const cachedIds = process.env.CACHED_IDS ? process.env.CACHED_IDS.split(",") : [];
 
-async function cacheProvidersInParallel(ids) {
+async function cacheProvidersInParallel() {
     try {
-        const writePromises = ids.map(async providerId => {
-            const providerPath = `cache/api/providers/${providerId}`;
-            await mkdir(providerPath, { recursive: true });
-            const dest = `${providerPath}/fetch.json`;
-            const json = fetchInfrastructure(isRemote ? api : mockApi, providerId);
-            const minJSON = JSON.stringify(json);
-            return writeFile(dest, minJSON, "utf8");
-        });
+        // opt out
+        //const targetIds = allProviders(".")
+        //    .filter(id => !cachedIds.has(id));
+
+        // opt in
+        const targetIds = cachedIds;
+
+        const writePromises = targetIds
+            .map(async providerId => {
+                const providerPath = `cache/api/providers/${providerId}`;
+                await mkdir(providerPath, { recursive: true });
+                const dest = `${providerPath}/fetch.json`;
+                const json = fetchInfrastructure(isRemote ? api : mockApi, providerId);
+                const minJSON = JSON.stringify(json);
+                return writeFile(dest, minJSON, "utf8");
+            });
 
         await Promise.all(writePromises);
 
@@ -48,5 +57,4 @@ async function cacheProvidersInParallel(ids) {
     }
 }
 
-await cacheProvidersInParallel(allProviders("."));
-//await cacheProvidersInParallel(["oeck"]);
+await cacheProvidersInParallel();

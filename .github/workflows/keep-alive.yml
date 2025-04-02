@@ -1,0 +1,12 @@
+name: Keep-alive
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  keep_alive:
+    name: Keep repository actions alive
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v1

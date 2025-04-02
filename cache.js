@@ -30,16 +30,9 @@ import { mkdir, writeFile } from "fs/promises";
 const isRemote = process.argv[2] == 1; // local by default
 const cachedIds = process.env.CACHE_IDS ? process.env.CACHE_IDS.split(",") : [];
 
-async function cacheProvidersInParallel() {
+async function cacheProvidersInParallel(ids) {
     try {
-        // opt out
-        //const targetIds = allProviders(".")
-        //    .filter(id => !cachedIds.has(id));
-
-        // opt in
-        const targetIds = cachedIds;
-
-        const writePromises = targetIds
+        const writePromises = ids
             .map(async providerId => {
                 const providerPath = `cache/api/providers/${providerId}`;
                 await mkdir(providerPath, { recursive: true });
@@ -57,4 +50,11 @@ async function cacheProvidersInParallel() {
     }
 }
 
-await cacheProvidersInParallel();
+// opt out
+//const targetIds = allProviders(".")
+//    .filter(id => !cachedIds.has(id));
+
+// opt in
+const targetIds = cachedIds;
+
+await cacheProvidersInParallel(targetIds);

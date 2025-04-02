@@ -1,5 +1,5 @@
 //
-//  fetch.js
+//  ivpn.js
 //  PassepartoutKit
 //
 //  Created by Davide De Rosa on 3/28/25.

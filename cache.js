@@ -28,7 +28,7 @@ import { fetchInfrastructure } from "./lib/context.js";
 import { mkdir, writeFile } from "fs/promises";
 
 const isRemote = process.argv[2] == 1; // local by default
-const cachedIds = process.env.CACHED_IDS ? process.env.CACHED_IDS.split(",") : [];
+const cachedIds = process.env.CACHE_IDS ? process.env.CACHE_IDS.split(",") : [];
 
 async function cacheProvidersInParallel() {
     try {

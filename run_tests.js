@@ -23,17 +23,11 @@
 //  along with PassepartoutKit.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import fs from "fs";
-
-const apiIndex = "api/v6/index.json";
-const excludedProviders = new Set([
-]);
+import { allProviders } from "./lib/api.js";
 
 async function runTests() {
-    const data = JSON.parse(fs.readFileSync(apiIndex, "utf8"));
-    const testImports = data.providers
-        .filter(provider => !excludedProviders.has(provider.id))
-        .map(provider => `./test/providers/${provider.id}.js`);
+    const testImports = allProviders(".")
+        .map(id => `./test/providers/${id}.js`);
 
     for (const testFile of testImports) {
         await import(testFile);

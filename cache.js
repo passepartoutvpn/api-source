@@ -34,7 +34,7 @@ async function cacheProvidersInParallel(ids) {
     try {
         const writePromises = ids
             .map(async providerId => {
-                const providerPath = `cache/api/providers/${providerId}`;
+                const providerPath = `cache/${api.root}/${api.version}/providers/${providerId}`;
                 await mkdir(providerPath, { recursive: true });
                 const dest = `${providerPath}/fetch.json`;
                 const json = fetchInfrastructure(isRemote ? api : mockApi, providerId);

@@ -24,14 +24,21 @@
 //
 
 import { api, mockApi } from "./lib/api.js";
-import { fetchInfrastructure } from "./lib/context.js";
+import { fetchInfrastructure, fetchRawInfrastructure } from "./lib/context.js";
 
-const providerId = process.argv[2];
+const target = process.argv[2];
 const isRemote = process.argv[3] == 1; // local by default
-if (!providerId) {
-    console.error("Please provide a provider id.");
+if (!target) {
+    console.error("Please provide a provider id or a file.js");
     process.exit(1);
 }
 
-const json = fetchInfrastructure(isRemote ? api : mockApi, providerId);
+let json;
+if (target.endsWith(".js")) {
+    const filename = target;
+    json = fetchRawInfrastructure(target, null);
+} else {
+    const providerId = target;
+    json = fetchInfrastructure(isRemote ? api : mockApi, providerId);
+}
 console.log(JSON.stringify(json, null, 2));

@@ -37,7 +37,11 @@ async function cacheProvidersInParallel(ids) {
                 const providerPath = `cache/${api.root}/${api.version}/providers/${providerId}`;
                 await mkdir(providerPath, { recursive: true });
                 const dest = `${providerPath}/fetch.json`;
-                const json = fetchInfrastructure(isRemote ? api : mockApi, providerId, true);
+                const options = {
+                    forCache: true,
+                    responseOnly: true
+                };
+                const json = fetchInfrastructure(isRemote ? api : mockApi, providerId, options);
                 const minJSON = JSON.stringify(json);
                 return writeFile(dest, minJSON, "utf8");
             });

@@ -38,6 +38,7 @@ async function cacheProvidersInParallel(ids) {
                 await mkdir(providerPath, { recursive: true });
                 const dest = `${providerPath}/fetch.json`;
                 const options = {
+                    forCache: true,
                     responseOnly: true
                 };
                 const json = fetchInfrastructure(isRemote ? api : mockApi, providerId, options);

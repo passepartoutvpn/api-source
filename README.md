@@ -82,6 +82,14 @@ You now have two options:
 1. Build the infrastructure statically, like in [TunnelBear](/api/v6/providers/tunnelbear.js)
 2. Fetch the response of a provider public API with the `getJSON(url)` API built-in, then convert it to the infrastructure format, like in [Hide.me](api/v6/providers/hideme.js)
 
+Eventually, you will be able to generate your infrastructure JSON with:
+
+```sh
+npm run fetch myprovider
+```
+
+If this sounds complicated, comparing your output with the one you get from other established providers will help.
+
 #### Presets
 
 The format of `ProviderPreset.templateData` is a Base64-encoded JSON whose format depends on `ProviderPreset.moduleType`. If the module type is `OpenVPN`, then the expected template format is [OpenVPNProviderTemplate][github-openvpn-template], where the inner OpenVPN configuration follows the [OpenVPN.Configuration][github-openvpn-configuration] structure.

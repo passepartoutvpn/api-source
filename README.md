@@ -101,8 +101,8 @@ Website: [passepartoutvpn.app][about-website]
 
 [github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
 [github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
-[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderPreset.swift
-[github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderServer.swift
+[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderPreset.swift
+[github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderServer.swift
 [github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/d627edd1b0bd39e71b9e2e425fc55851c7d05bb1/Sources/API/APIEngine.swift#L97
 
 [about-app]: https://github.com/passepartoutvpn/passepartout

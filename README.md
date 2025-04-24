@@ -65,8 +65,8 @@ Example:
 ```json
 {
     "response": {
-        "presets": [],  // array of ProviderPreset
-        "servers": []   // array of ProviderServer
+        "presets": [],
+        "servers": []
     }
 }
 ```

@@ -42,7 +42,7 @@ npm test
 
 Copyright (c) 2025 Davide De Rosa. All rights reserved.
 
-This project is licensed under the [GPLv3][license-content].
+This project is licensed under the [MIT][license-content].
 
 ### Contributing
 

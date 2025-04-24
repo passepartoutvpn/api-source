@@ -103,7 +103,7 @@ Example:
         "endpoints": [
             "UDP:20000", "UDP:30000", "TCP:40000"
         ]
-    })
+    }
 }
 ```
 

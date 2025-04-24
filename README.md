@@ -90,17 +90,17 @@ Example:
 
 ```json
 {
-    providerId: "My Provider",
-    presetId: "mypreset",
-    description: "My Preset",
-    moduleType: "OpenVPN",
-    templateData: jsonToBase64({
-        configuration: {
+    "providerId": "My Provider",
+    "presetId": "mypreset",
+    "description": "My Preset",
+    "moduleType": "OpenVPN",
+    "templateData": jsonToBase64({
+        "configuration": {
             "ca": "...",
             "cipher": "AES-256-CBC",
             "tlsWrap": openVPNTLSWrap("auth", "...")
         },
-        endpoints: [
+        "endpoints": [
             "UDP:20000", "UDP:30000", "TCP:40000"
         ]
     })

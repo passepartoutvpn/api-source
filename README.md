@@ -65,11 +65,13 @@ Example:
 ```json
 {
     "response": {
-        "presets": [ ... ], // [ProviderPreset][github-provider-preset]
-        "servers": [ ... ]  // [ProviderServer][github-provider-server]
+        "presets": [ ProviderPreset, ... ],
+        "servers": [ ProviderServer, ... ]
     }
 }
 ```
+
+with `presets` and `servers` being arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively.
 
 You have two options:
 

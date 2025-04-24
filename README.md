@@ -38,11 +38,86 @@ Run the tests against the mocks:
 npm test
 ```
 
+## Contributing
+
+The latest target is `api/v6`, perform the steps below in that folder.
+
+### New providers
+
+#### index.json
+
+The first step is a new entry in [index.json](/api/v6/index.json) following the [Provider][github-provider] format. The metadata is a map of maps, where the key is the module type that the provider supports. At the time of writing, only the `OpenVPN` type is recognized.
+
+Example:
+
+```json
+{
+    "id": "myprovider",
+    "description": "My Provider",
+    "metadata": {
+        "OpenVPN": {}
+    }
+}
+```
+
+#### getInfrastructure()
+
+Next, you need to return the servers infrastructure as a [ProviderInfrastructure][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`, then encapsulated in a [APIEngine.ScriptResult][github-engine-script-result].
+
+Example:
+
+```javascript
+{
+    response: {
+        presets: [],
+        servers: []
+    }
+}
+```
+
+where `presets` and `servers` are arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively. More on the `templateData` field below.
+
+You now have two options:
+
+1. Build the infrastructure statically, like in [TunnelBear](/api/v6/providers/tunnelbear.js)
+2. Fetch the response of a provider public API with the `getJSON(url)` API built-in, then convert it to the infrastructure format, like in [Hide.me](api/v6/providers/hideme.js)
+
+#### Presets
+
+The format of `ProviderPreset.templateData` is a Base64-encoded JSON whose format depends on `ProviderPreset.moduleType`. If the module type is `OpenVPN`, then the expected template format is [OpenVPNProviderTemplate][github-openvpn-template], where the inner OpenVPN configuration follows the [OpenVPN.Configuration][github-openvpn-configuration] structure.
+
+Example:
+
+```javascript
+{
+    providerId: "My Provider",
+    presetId: "mypreset",
+    description: "My Preset",
+    moduleType: "OpenVPN",
+    templateData: jsonToBase64({
+        configuration: {
+            "ca": "...PEM here...",
+            "cipher": "AES-256-CBC",
+            "tlsWrap": openVPNTLSWrap("auth", "...static key here...")
+        },
+        endpoints: [
+            "UDP:20000", "UDP:30000", "TCP:40000"
+        ]
+    })
+}
+```
+
+where `jsonToBase64(json)` and `openVPNTLSWrap(strategy, key)` are API built-ins.
+
+#### Unit tests
+
+It's highly desirable that you add some basic unit tests in `test/providers`. You may refer to the existing tests, they should be pretty straightforward.
+
 ## License
 
 Copyright (c) 2025 Davide De Rosa. All rights reserved.
 
-This project is licensed under the [GPLv3][license-content].
+This project is licensed under the [MIT][license-content].
 
 ### Contributing
 
@@ -56,6 +131,14 @@ Website: [passepartoutvpn.app][about-website]
 
 [license-content]: LICENSE
 [contrib-cla]: CLA.rst
+
+[github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
+[github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
+[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderPreset.swift
+[github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderServer.swift
+[github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/APIEngine.swift#L97
+[github-openvpn-template]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Partout/Providers/OpenVPN%2BProviders.swift#L45
+[github-openvpn-configuration]: https://github.com/passepartoutvpn/partout/blob/master/Sources/OpenVPN/Base/OpenVPN%2BConfiguration.swift#L145
 
 [about-app]: https://github.com/passepartoutvpn/passepartout
 [about-twitter]: https://twitter.com/keeshux

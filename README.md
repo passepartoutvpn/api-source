@@ -80,11 +80,34 @@ where `presets` and `servers` are arrays of [ProviderPreset][github-provider-pre
 You now have two options:
 
 1. Build the infrastructure statically, e.g. [TunnelBear](/api/v6/providers/tunnelbear.js)
-2. Fetch the response of a provider public API with `getJSON()`, then convert it to the above format, e.g. [Hide.me](api/v6/providers/hideme.js)
+2. Fetch the response of a provider public API with `getJSON(url)`, then convert it to the above format, e.g. [Hide.me](api/v6/providers/hideme.js)
 
 #### Presets
 
-The format of `preset.templateData` depends on `preset.moduleType`. If the module type is `OpenVPN`, then this is the [expected template format][github-openvpn-template], where the inner OpenVPN configuration follows [this format][github-openvpn-configuration].
+The format of `preset.templateData` is a Base64-encoded JSON whose format depends on `preset.moduleType`. If the module type is `OpenVPN`, then this is the [expected template format][github-openvpn-template], where the inner OpenVPN configuration follows [this format][github-openvpn-configuration].
+
+Example:
+
+```json
+{
+    providerId: "My Provider",
+    presetId: "mypreset",
+    description: "My Preset",
+    moduleType: "OpenVPN",
+    templateData: jsonToBase64({
+        configuration: {
+            "ca": "...",
+            "cipher": "AES-256-CBC",
+            "tlsWrap": openVPNTLSWrap("auth", "...")
+        },
+        endpoints: [
+            "UDP:20000", "UDP:30000", "TCP:40000"
+        ]
+    })
+}
+```
+
+where `jsonToBase64(json)` and `openVPNTLSWrap(strategy, key)` are API built-ins.
 
 #### Unit tests
 

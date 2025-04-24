@@ -58,7 +58,20 @@ Example:
 }
 ```
 
-Next, you need to return the servers infrastructure in [this format][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`. You have two options:
+Next, you need to return the servers infrastructure in [this format][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`, then encapsulated in a [ScriptResult][github-engine-script-result].
+
+Example:
+
+```json
+{
+    "response": {
+        "presets": [ ... ], // [ProviderPreset][github-provider-preset]
+        "servers": [ ... ]  // [ProviderServer][github-provider-server]
+    }
+}
+```
+
+You have two options:
 
 1. Build the infrastructure statically, e.g. [TunnelBear](/api/v6/providers/tunnelbear.js)
 2. Fetch the response of a provider public API with `getJSON()`, then convert it to the above format, e.g. [Hide.me](api/v6/providers/hideme.js)
@@ -86,6 +99,9 @@ Website: [passepartoutvpn.app][about-website]
 
 [github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
 [github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
+[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderProvider.swift
+[github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderServer.swift
+[github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/d627edd1b0bd39e71b9e2e425fc55851c7d05bb1/Sources/API/APIEngine.swift#L97
 
 [about-app]: https://github.com/passepartoutvpn/passepartout
 [about-twitter]: https://twitter.com/keeshux

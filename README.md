@@ -38,6 +38,33 @@ Run the tests against the mocks:
 npm test
 ```
 
+## Contributing
+
+The latest target is `api/v6`, perform the steps below in that folder.
+
+### New providers
+
+The first step is a new entry in [index.json](/api/v6/index.json) following [this format][github-provider]. The metadata is a map of maps, where the key is the module type that the provider supports. At the time of writing, only the "OpenVPN" type is recognized.
+
+Example:
+
+```json
+{
+    "id": "myprovider",
+    "description": "My Provider",
+    "metadata": {
+        "OpenVPN": {}
+    }
+}
+```
+
+Next, you need to return the servers infrastructure in [this format][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`. You have two options:
+
+1. Build the infrastructure statically, e.g. [TunnelBear](/api/v6/providers/tunnelbear.js)
+2. Fetch the response of a provider public API with `getJSON()`, then convert it to the above format, e.g. [Hide.me](api/v6/providers/hideme.js)
+
+Lastly, it's highly desirable that you add some basic unit tests in `test/providers`. You may refer to the existing tests, they should be pretty straightforward.
+
 ## License
 
 Copyright (c) 2025 Davide De Rosa. All rights reserved.
@@ -56,6 +83,9 @@ Website: [passepartoutvpn.app][about-website]
 
 [license-content]: LICENSE
 [contrib-cla]: CLA.rst
+
+[github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
+[github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
 
 [about-app]: https://github.com/passepartoutvpn/passepartout
 [about-twitter]: https://twitter.com/keeshux

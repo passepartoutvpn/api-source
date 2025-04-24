@@ -44,6 +44,8 @@ The latest target is `api/v6`, perform the steps below in that folder.
 
 ### New providers
 
+#### index.json
+
 The first step is a new entry in [index.json](/api/v6/index.json) following [this format][github-provider]. The metadata is a map of maps, where the key is the module type that the provider supports. At the time of writing, only the "OpenVPN" type is recognized.
 
 Example:
@@ -58,6 +60,8 @@ Example:
 }
 ```
 
+#### getInfrastructure()
+
 Next, you need to return the servers infrastructure in [this format][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`, then encapsulated in a [ScriptResult][github-engine-script-result].
 
 Example:
@@ -71,12 +75,18 @@ Example:
 }
 ```
 
-where `presets` and `servers` are arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively.
+where `presets` and `servers` are arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively. More on the `templateData` field below.
 
-You have two options:
+You now have two options:
 
 1. Build the infrastructure statically, e.g. [TunnelBear](/api/v6/providers/tunnelbear.js)
 2. Fetch the response of a provider public API with `getJSON()`, then convert it to the above format, e.g. [Hide.me](api/v6/providers/hideme.js)
+
+#### Presets
+
+The format of `preset.templateData` depends on `preset.moduleType`. If the module type is `OpenVPN`, then this is the [expected template format][github-openvpn-template], where the inner OpenVPN configuration follows [this format][github-openvpn-configuration].
+
+#### Unit tests
 
 Lastly, it's highly desirable that you add some basic unit tests in `test/providers`. You may refer to the existing tests, they should be pretty straightforward.
 
@@ -103,7 +113,9 @@ Website: [passepartoutvpn.app][about-website]
 [github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
 [github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderPreset.swift
 [github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Providers/ProviderServer.swift
-[github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/d627edd1b0bd39e71b9e2e425fc55851c7d05bb1/Sources/API/APIEngine.swift#L97
+[github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/APIEngine.swift#L97
+[github-openvpn-template]: https://github.com/passepartoutvpn/partout/blob/master/Sources/Partout/Providers/OpenVPN%2BProviders.swift#L45
+[github-openvpn-configuration]: https://github.com/passepartoutvpn/partout/blob/master/Sources/OpenVPN/Base/OpenVPN%2BConfiguration.swift#L145
 
 [about-app]: https://github.com/passepartoutvpn/passepartout
 [about-twitter]: https://twitter.com/keeshux

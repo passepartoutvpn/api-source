@@ -62,7 +62,7 @@ Example:
 
 #### getInfrastructure()
 
-Next, you need to return the servers infrastructure as a [ProviderInfrastructure][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`, then encapsulated in a [APIEngine.ScriptResult][github-engine-script-result].
+Next, you need to create a `providers/myprovider.js` script, i.e. named after your provider identifier. Here, you return the servers infrastructure as a [ProviderInfrastructure][github-provider-infrastructure] from a JavaScript function called `getInfrastructure()`, finally encapsulated in a [APIEngine.ScriptResult][github-engine-script-result].
 
 Example:
 

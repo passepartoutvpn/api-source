@@ -65,13 +65,13 @@ Example:
 ```json
 {
     "response": {
-        "presets": [ ProviderPreset, ... ],
-        "servers": [ ProviderServer, ... ]
+        "presets": [],  // array of ProviderPreset
+        "servers": []   // array of ProviderServer
     }
 }
 ```
 
-with `presets` and `servers` being arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively.
+where `presets` and `servers` are arrays of [ProviderPreset][github-provider-preset] and [ProviderServer][github-provider-server], respectively.
 
 You have two options:
 
@@ -101,7 +101,7 @@ Website: [passepartoutvpn.app][about-website]
 
 [github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
 [github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift
-[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderProvider.swift
+[github-provider-preset]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderPreset.swift
 [github-provider-server]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderServer.swift
 [github-engine-script-result]: https://github.com/passepartoutvpn/partout/blob/d627edd1b0bd39e71b9e2e425fc55851c7d05bb1/Sources/API/APIEngine.swift#L97
 

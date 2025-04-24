@@ -66,11 +66,11 @@ Next, you need to return the servers infrastructure in [this format][github-prov
 
 Example:
 
-```json
+```javascript
 {
-    "response": {
-        "presets": [],
-        "servers": []
+    response: {
+        presets: [],
+        servers: []
     }
 }
 ```
@@ -88,22 +88,22 @@ The format of `preset.templateData` is a Base64-encoded JSON whose format depend
 
 Example:
 
-```json
+```javascript
 {
-    "providerId": "My Provider",
-    "presetId": "mypreset",
-    "description": "My Preset",
-    "moduleType": "OpenVPN",
-    "templateData": jsonToBase64({
-        "configuration": {
+    providerId: "My Provider",
+    presetId: "mypreset",
+    description: "My Preset",
+    moduleType: "OpenVPN",
+    templateData: jsonToBase64({
+        configuration: {
             "ca": "...",
             "cipher": "AES-256-CBC",
             "tlsWrap": openVPNTLSWrap("auth", "...")
         },
-        "endpoints": [
+        endpoints: [
             "UDP:20000", "UDP:30000", "TCP:40000"
         ]
-    }
+    })
 }
 ```
 

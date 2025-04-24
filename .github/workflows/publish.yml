@@ -13,7 +13,9 @@ jobs:
   push_to_api:
     name: Push to API
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
+      url: https://github.com/passepartoutvpn/api
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

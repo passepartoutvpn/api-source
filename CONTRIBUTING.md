@@ -188,7 +188,7 @@ Returns a Base64 string from an IPv4 address. For example, use this for pre-reso
 
 ### openVPNTLSWrap(strategy, file)
 
-Returns an object for the "tlsWrap" of an OpenVPN template configuration, given a strategy (`auth` or `crypt`) and the text of the static key without headers.
+Returns an object for the `tlsWrap` of an OpenVPN template configuration, given a strategy (`auth` or `crypt`) and the text of the static key without headers.
 
 [github-provider]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/Provider.swift
 [github-provider-infrastructure]: https://github.com/passepartoutvpn/partout/blob/master/Sources/API/ProviderInfrastructure.swift

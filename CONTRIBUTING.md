@@ -158,7 +158,7 @@ result = {
 
 ### getJSON(url)
 
-Returns context from an URL as a JSON object.
+Returns content from an URL as a JSON object.
 
 Example:
 
